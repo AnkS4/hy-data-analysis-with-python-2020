@@ -3,10 +3,16 @@
 import numpy as np
 
 def get_rows(a):
-    return []
+    return [i for i in a]
+    '''
+    temp = []
+    for i in range(len(a)):
+        temp.append(a[i,])
+    return temp
+    '''
 
 def get_columns(a):
-    return []
+    return [i for i in a.T]
 
 def main():
     np.random.seed(0)
