@@ -3,7 +3,17 @@
 import numpy as np
 
 def almost_meeting_lines(a1, b1, a2, b2):
-    return []
+    op = np.linalg.lstsq([[a1, -1], [a2, -1]], [-b1, -b2])
+    return op[0], bool(op[2]==2)
+    '''
+    try:
+        op = np.linalg.solve([[a1, -1], [a2, -1]], [-b1, -b2])
+        f = True
+    except np.linalg.LinAlgError:
+        op = np.linalg.lstsq([[a1, -1], [a2, -1]], [-b1, -b2])[0]
+        f = False
+    return op, f
+    '''
 
 def main():
     a1=1
