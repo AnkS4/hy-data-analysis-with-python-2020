@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-import scipy.stats
+from scipy.stats import pearsonr
 import numpy as np
 
 def load():
@@ -8,10 +8,12 @@ def load():
     return pd.read_csv("src/iris.csv").drop('species', axis=1).values
 
 def lengths():
-    return 0
+    a = load()
+    return pearsonr(a[:,0], a[:, 2])[0]
 
 def correlations():
-    return np.array([])
+    a = load()
+    return np.corrcoef((a[:,0], a[:, 1], a[:,2], a[:, 3]))
 
 def main():
     print(lengths())
