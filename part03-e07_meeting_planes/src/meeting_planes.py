@@ -3,7 +3,8 @@
 import numpy as np
 
 def meeting_planes(a1, b1, c1, a2, b2, c2, a3, b3, c3):
-    return []
+    y, x, z = np.linalg.solve([[a1, b1, -1], [a2, b2, -1], [a3, b3, -1]], [-c1, -c2, -c3])
+    return x, y, z
 
 def main():
     a1=1
