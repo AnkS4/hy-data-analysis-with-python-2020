@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
 
+import pandas as pd
 
 def read_series():
-    return pd.Series()
+    ind = []
+    val = []
+    while True:
+        txt = input("Enter: ")
+        if not txt:
+            break
+        try:
+            i, v = txt.split()
+            ind.append(i)
+            val.append(v)
+        except ValueError:
+            print("ValueError")
+            continue
+    return pd.Series(val, index=ind, dtype='object')
 
 def main():
-    pass
+    print(read_series())
 
 if __name__ == "__main__":
     main()
