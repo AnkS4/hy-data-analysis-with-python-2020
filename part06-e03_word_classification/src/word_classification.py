@@ -37,17 +37,40 @@ def load_english():
     return lines
 
 def get_features(a):
-    return np.array([[]])
+    features = np.zeros((len(a), len(alphabet)))
+    for i, w in enumerate(a):
+        for j, l in enumerate(alphabet):
+            features[i, j] += w.count(l)
+    return features
 
 def contains_valid_chars(s):
+    for i in s:
+        if i not in alphabet:
+            return False
     return True
 
 def get_features_and_labels():
-    return np.array([[]]), np.array([])
+    f = load_finnish()
+    f = [i.lower() for i in f]
+    f = [i for i in f if contains_valid_chars(i)]
+    
+    e = load_english()
+    e = [i for i in e if i[0].islower()]
+    e = [i.lower() for i in e]
+    e = [i for i in e if contains_valid_chars(i)]
+
+    y = np.zeros(len(f)+len(e))
+    y[len(f):] = 1
+
+    return (np.concatenate((get_features(f), get_features(e)))), y
 
 
 def word_classification():
-    return []
+    X, y = get_features_and_labels()
+    model = MultinomialNB()
+    cv = model_selection.KFold(n_splits=5, shuffle=True, random_state=0)
+    scores = cross_val_score(model, X, y, cv=cv)
+    return scores
 
 
 def main():
